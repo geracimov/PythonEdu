@@ -103,8 +103,6 @@ projects = [
 ]
 for project in projects:
     path = os.path.join('.', project)
-    # w = get_all_words_in_path(path)
-    # w = get_top_functions_n ames_in_path(path)
     wds += get_top_verbs_in_path(path)
 
 top_size = 200
