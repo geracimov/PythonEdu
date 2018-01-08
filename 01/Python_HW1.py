@@ -5,29 +5,6 @@ import collections
 from nltk import pos_tag
 
 
-def get_all_names(tree):
-    return [node.id for node in ast.walk(tree) if isinstance(node, ast.Name)]
-
-
-def get_all_words_in_path(_path):
-    trees = [t for t in get_trees(_path) if t]
-    function_names = [f for f in flat([get_all_names(t) for t in trees]) if
-                      not (f.startswith('__') and f.endswith('__'))]
-
-    def split_snake_case_name_to_words(name):
-        return [n for n in name.split('_') if n]
-
-    return flat([split_snake_case_name_to_words(function_name) for function_name in function_names])
-
-
-def get_top_functions_names_in_path(_path, _top_size=10):
-    t = get_trees(_path)
-    nms = [f for f in
-           flat([[node.name.lower() for node in ast.walk(t) if isinstance(node, ast.FunctionDef)] for t in t]) if
-           not (f.startswith('__') and f.endswith('__'))]
-    return collections.Counter(nms).most_common(_top_size)
-
-
 def is_verb(_word):
     if not _word:
         return False
@@ -101,11 +78,12 @@ projects = [
     'requests',
     'sqlalchemy',
 ]
+top_size = 200
+
 for project in projects:
     path = os.path.join('.', project)
-    wds += get_top_verbs_in_path(path)
+    wds += get_top_verbs_in_path(path, top_size)
 
-top_size = 200
 print('total %s words, %s unique' % (len(wds), len(set(wds))))
 for word, occurence in collections.Counter(wds).most_common(top_size):
     print(word, occurence)
