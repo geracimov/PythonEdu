@@ -1,0 +1,8 @@
+L=[int(x) for x in input().split()]
+
+if len(L)<2:
+    print ('Ошибка. Кучек слишком мало, чтобы можно было решить задачу.')
+elif (len(L)==2 and L[1]==L[0]) or (len(L)>2 and sum(L)%len(L)==0):
+    print ('Кучки можно уравнять')
+else:
+    print ('Кучки нельзя уравнять')
