@@ -5,6 +5,11 @@ import collections
 from nltk import pos_tag
 
 
+class class_run_verb:
+    def qw(self):
+        None
+
+
 def is_verb(_word):
     if not _word:
         return False
@@ -55,7 +60,8 @@ def get_top_verbs_in_path(_path, _top_size=10):
     global Path
     Path = _path
     trees = [t for t in get_trees(None) if t]
-    fncs = [f for f in get_functions_in_trees(trees) if not (f.startswith('__') and f.endswith('__'))]
+    fncs = [f for f in get_functions_in_trees(trees)
+            if not (f.startswith('__') and f.endswith('__'))]
     print('functions extracted')
     verbs = flat([get_verbs_from_function_name(function_name) for function_name in fncs])
     return collections.Counter(verbs).most_common(_top_size)
