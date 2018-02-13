@@ -9,6 +9,9 @@ class class_run_verb:
     def qw(self):
         None
 
+class jump_fly_jump_jump_jump_fly_jump:
+    def qq(self):
+        None
 
 def is_verb(_word):
     if not _word:
